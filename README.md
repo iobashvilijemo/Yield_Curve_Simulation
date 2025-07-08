@@ -7,4 +7,6 @@ This is a Streamlit-based web app for simulating and reverse-engineering fixed i
 - Reverse-engineer simulation parameters from a simulated curve.
 
 ## Running locally
-```
+```bash
+pip install -r requirements.txt
+streamlit run app.py
