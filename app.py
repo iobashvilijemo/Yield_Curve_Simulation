@@ -2,6 +2,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import numpy as np
+from collections import defaultdict
 
 # Define tenor mappings
 tenor_to_years = {
@@ -91,6 +92,10 @@ def reverse_engineer_factors(base_curve, simulated_curve, pivot_tenor):
     # Estimate caps: compare predicted vs actual
     short_end_cap = float('-inf')
     long_end_cap = float('inf')
+    
+    changes = {}
+    short_changes = defaultdict(int)
+    long_changes = defaultdict(int)
 
     for tenor in base_curve:
         if tenor == pivot_tenor:
@@ -102,13 +107,19 @@ def reverse_engineer_factors(base_curve, simulated_curve, pivot_tenor):
             delta_years * (short_end_factor if t_year < pivot_year else long_end_factor)
         )
         actual_change = simulated_curve[tenor] - base_pivot_rate
+        
+        changes[t_year] = actual_change
+    
+    for key, change in changes.items():
+        if key < pivot_year:
+            short_changes[round(change,8)] += 1
+        elif key > pivot_year:
+            long_changes[round(change,8)] += 1
 
-        if t_year < pivot_year:
-            cap = actual_change - predicted_change
-            short_end_cap = max(short_end_cap, actual_change)
-        else:
-            cap = actual_change - predicted_change
-            long_end_cap = min(long_end_cap, actual_change)
+    short_end_cap = next((val for val, count in short_changes.items() if count>1), float('-inf'))
+    long_end_cap = next((val for val, count in long_changes.items() if count>1), float('inf'))       
+
+        
 
     return {
         'pivot_tenor': pivot_tenor,
