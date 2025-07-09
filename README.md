@@ -13,4 +13,4 @@ streamlit run app.py
 ```
 
 ## Deployment
-Deploy this app easily on [Streamlit Cloud](https://streamlit.io/cloud).
+Deploy this app easily on [Streamlit App](https://yieldcurvesimulation-8uwsoblcjwe9d6bdvhvrd4.streamlit.app/).
