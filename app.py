@@ -172,7 +172,7 @@ default_base_curve = {
 st.subheader("Base Curve Definition")
 custom_base = {}
 for tenor in default_base_curve:
-    custom_base[tenor] = st.number_input(f"Base Yield for {tenor}", value=default_base_curve[tenor], step=0.0001, format="%.4f")
+    custom_base[tenor] = st.number_input(f"Base Yield for {tenor}", value=default_base_curve[tenor], step=0.0001, format="%.6f")
 
 if option == "Simulate Curve":
     st.subheader("Input Parameters for Simulation")
