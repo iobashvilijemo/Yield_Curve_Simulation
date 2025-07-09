@@ -193,7 +193,7 @@ elif option == "Reverse Engineer Factors":
     pivot_tenor = st.selectbox("Pivot Tenor", list(custom_base.keys()), key="pivot")
     sim_curve = {}
     for tenor in custom_base:
-        sim_curve[tenor] = st.number_input(f"Simulated Yield for {tenor}", value=custom_base[tenor] + 0.001, step=0.0001, format="%.4f")
+        sim_curve[tenor] = st.number_input(f"Simulated Yield for {tenor}", value=custom_base[tenor] + 0.001, step=0.0001, format="%.6f")
 
     if st.button("Reverse Engineer"):
         results = reverse_engineer_factors(custom_base, sim_curve, pivot_tenor)
