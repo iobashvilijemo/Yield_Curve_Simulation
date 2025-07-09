@@ -106,7 +106,7 @@ def reverse_engineer_factors(base_curve, simulated_curve, pivot_tenor):
         predicted_change = shift_value + (
             delta_years * (short_end_factor if t_year < pivot_year else long_end_factor)
         )
-        actual_change = simulated_curve[tenor] - base_pivot_rate
+        actual_change = simulated_curve[tenor] - base_curve[tenor]
         
         changes[t_year] = actual_change
     
